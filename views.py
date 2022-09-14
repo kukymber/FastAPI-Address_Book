@@ -25,7 +25,7 @@ def get_session():
 
 @app.get("/")
 def root():
-    return 'addresses_book'
+    return "addressbook"
 
 
 @app.get("/user/{id}", response_model=User)
