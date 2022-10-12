@@ -2,8 +2,8 @@ from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 
-# create a Postgresql
-engine = create_engine("postgresql://@localhost/addressbook.db", echo=True)
+# create database
+engine = create_engine("sqlite:///./addressbook.db", echo=True)
 
 Base = declarative_base()
 

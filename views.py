@@ -1,4 +1,4 @@
-from schemas import User, PhoneNumber, Email
+from schemas import User
 
 from database import Base, engine, SessionLocal
 from fastapi import FastAPI, status, HTTPException, Depends
@@ -39,11 +39,12 @@ def read_user(id: int, session: Session = Depends(get_session)):
     return user_get
 
 
-@app.post('/user', response_model=User, status_code=status.HTTP_201_CREATED)
-def created_user(id: int, session: Session = Depends(get_session)):
-    session.add(User)
+@app.post('/user/', response_model=User, status_code=status.HTTP_201_CREATED)
+def created_user(id: int, user: User, session: Session = Depends(get_session)):
+    session.add(user)
     session.commit()
-    return f'created user with {id}'  # !!!
+
+    return f'created user with {id}'
 
 
 @app.put('/user/{id}', response_model=User)

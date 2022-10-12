@@ -3,6 +3,7 @@ from enum import Enum
 from pydantic import BaseModel, validator, EmailStr
 from pydantic.schema import date
 
+
 #  this class is used in User.gender for
 #  validation objects
 class GenderEnum(str, Enum):
@@ -33,4 +34,3 @@ class Email(BaseModel):
     id_user: int
     type_of_email: str
     email: EmailStr
-
