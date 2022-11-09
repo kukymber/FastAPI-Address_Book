@@ -28,6 +28,13 @@ def root():
     return "addressbook"
 
 
+@app.post('/user', response_model=User, status_code=status.HTTP_201_CREATED)
+def created_user(id: int, session: Session = Depends(get_session)):
+    session.add(User)
+    session.commit()
+    return f'created user with {id}'
+
+
 @app.get("/user/{id}", response_model=User)
 def read_user(id: int, session: Session = Depends(get_session)):
     # get the user item. If not found, raise exception and return 404 error
@@ -37,13 +44,6 @@ def read_user(id: int, session: Session = Depends(get_session)):
         raise HTTPException(status_code=404, detail=f'user with {id} not found')
 
     return user_get
-
-
-@app.post('/user', response_model=User, status_code=status.HTTP_201_CREATED)
-def created_user(id: int, session: Session = Depends(get_session)):
-    session.add(User)
-    session.commit()
-    return f'created user with {id}'
 
 
 @app.put('/user/{id}', response_model=User)
@@ -71,6 +71,14 @@ def delete_user(id: int, session: Session = Depends(get_session)):
 """User's phone number"""
 
 
+@app.post('/phone_number', response_model=PhoneNumber, status_code=status.HTTP_201_CREATED)
+def created_user(id: int, session: Session = Depends(get_session)):
+    session.add(PhoneNumber)
+    session.commit()
+
+    return f'created phone_number with {id}'
+
+
 @app.get('/phone_number/{id}', response_model=PhoneNumber)
 def read_phone_number(id: int, session: Session = Depends(get_session)):
     phone_num_get = session.query(models.PhoneNumber).get(id)
@@ -79,14 +87,6 @@ def read_phone_number(id: int, session: Session = Depends(get_session)):
         raise HTTPException(status_code=404, detail=f'phone_number with {id} not found')
 
     return phone_num_get
-
-
-@app.post('/phone_number', response_model=PhoneNumber, status_code=status.HTTP_201_CREATED)
-def created_user(id: int, session: Session = Depends(get_session)):
-    session.add(PhoneNumber)
-    session.commit()
-
-    return f'created phone_number with {id}'
 
 
 @app.put('/phone_number/{id}', response_model=PhoneNumber)
@@ -112,6 +112,13 @@ def delete_user(id: int, session: Session = Depends(get_session)):
 """User's Email"""
 
 
+@app.post('/email', response_model=Email, status_code=status.HTTP_201_CREATED)
+def created_user(id: int, session: Session = Depends(get_session)):
+    session.add(Email)
+    session.commit()
+    return f'Created email with {id}'
+
+
 @app.get('/email/{id}', response_model=Email)
 def read_phone_number(id: int, session: Session = Depends(get_session)):
     email_get = session.query(models.Email).get(id)
@@ -120,13 +127,6 @@ def read_phone_number(id: int, session: Session = Depends(get_session)):
         raise HTTPException(status_code=404, detail=f'Email with {id} not found')
 
     return email_get
-
-
-@app.post('/email', response_model=Email, status_code=status.HTTP_201_CREATED)
-def created_user(id: int, session: Session = Depends(get_session)):
-    session.add(Email)
-    session.commit()
-    return f'Created email with {id}'  # !!!
 
 
 @app.put('/email/{id}', response_model=PhoneNumber)
